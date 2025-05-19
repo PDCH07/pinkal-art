@@ -11,7 +11,18 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+	
+<style>
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; }
+.modal:target { display: block; }
+.modal-content { background: #fff; margin: 10% auto; padding: 2em; width: 90%; max-width: 400px; position: relative; border-radius: 8px; }
+.modal-content label { display: block; margin-top: 1em; }
+.modal-content input, .modal-content textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; }
+.modal-content button { margin-top: 1em; padding: 0.6em 1.2em; }
+.close { display: block; text-align: center; margin-top: 1em; text-decoration: underline; color: #666; }
+</style>
+
+</head>
 	<body class="is-preload-0 is-preload-1 is-preload-2">
 
 		<!-- Main -->
@@ -23,7 +34,7 @@
 						<p>Paintings & Creative Arts<br><span>Ludwigsburg, Germany</span></p>
 						<ul class="icons">
 							<li><a href="https://instagram.com/pinkal_art_kunst" target="_blank" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="mailto:hello@pinkal.art" class="icon fa-envelope"><span class="label">Email</span></a></li>
+							<li><a href="#contactModal" class="icon fa-envelope"><span class="label">Email</span></a></li>
 						</ul>
 					</header>
 
@@ -256,5 +267,22 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/main.js"></script>
 
-	</body>
+	
+<!-- Contact Modal -->
+<div id="contactModal" class="modal">
+  <div class="modal-content">
+    <h2>Send a Message</h2>
+    <form action="https://formspree.io/f/xrbqdlkk" method="POST">
+	  <input type="text" name="_gotcha" style="display:none">
+      <label>Your Email:</label>
+      <input type="email" name="email" required>
+      <label>Your Message:</label>
+      <textarea name="message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+    <a href="#" class="close">Close</a>
+  </div>
+</div>
+
+</body>
 </html>

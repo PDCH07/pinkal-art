@@ -1,288 +1,259 @@
-<!DOCTYPE HTML>
-<!--
-	Lens by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Pinkal Art</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	
-<style>
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; }
-.modal:target { display: block; }
-.modal-content { background: #fff; margin: 10% auto; padding: 2em; width: 90%; max-width: 400px; position: relative; border-radius: 8px; }
-.modal-content label { display: block; margin-top: 1em; }
-.modal-content input, .modal-content textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; }
-.modal-content button { margin-top: 1em; padding: 0.6em 1.2em; }
-.close { display: block; text-align: center; margin-top: 1em; text-decoration: underline; color: #666; }
-</style>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pinkal Art | Original Paintings & Visual Stories</title>
+    <meta
+      name="description"
+      content="A modern gallery for Pinkal Art. Explore original paintings, open each work full-screen, and send direct inquiries for pieces that catch your eye."
+    />
+    <meta name="theme-color" content="#f4ede5" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
 
-</head>
-	<body class="is-preload-0 is-preload-1 is-preload-2">
+    <header class="hero section" id="top" data-reveal>
+      <nav class="topbar" aria-label="Primary">
+        <a class="brand" href="#top">Pinkal Art</a>
+        <div class="topbar-links">
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Inquire</a>
+          <a
+            href="https://instagram.com/pinkal_art_kunst"
+            target="_blank"
+            rel="noreferrer"
+            >Instagram</a
+          >
+        </div>
+      </nav>
 
-		<!-- Main -->
-			<div id="main">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Original paintings. Bold texture. Quiet drama.</p>
+          <h1>Art that holds the room before anyone says a word.</h1>
+          <p class="hero-text">
+            Pinkal Art now lives inside a gallery-first website built to let the work lead.
+            Browse the collection, open each piece full-screen, and send a direct inquiry the
+            moment one stays with you.
+          </p>
 
-				<!-- Header -->
-					<header id="header">
-						<h1>Pinkal Art</h1>
-						<p>Paintings & Creative Arts<br><span>Ludwigsburg, Germany</span></p>
-						<ul class="icons">
-							<li><a href="https://instagram.com/pinkal_art_kunst" target="_blank" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="#contactModal" class="icon fa-envelope"><span class="label">Email</span></a></li>
-						</ul>
-					</header>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#gallery">View the collection</a>
+            <a class="button button-secondary" href="#contact">Send an inquiry</a>
+          </div>
 
-				<!-- Thumbnail -->
-					<section id="thumbnails">
-						<article>
-							<a class="thumbnail" href="images/fulls/01.jpg" data-position="left center"><img src="images/thumbs/01.jpg" alt="" /></a>
-							<h2>Taj Mahal</h2>
-							<p>Acrylic on Canvas with 3D effects.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/02.jpg"><img src="images/thumbs/02.jpg" alt="" /></a>
-							<h2>Vivamus convallis libero</h2>
-							<p>Sed velit lacus, laoreet at venenatis convallis in lorem tincidunt.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/03.jpg" data-position="top center"><img src="images/thumbs/03.jpg" alt="" /></a>
-							<h2>Nec accumsan enim felis</h2>
-							<p>Maecenas eleifend tellus ut turpis eleifend, vitae pretium faucibus.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/04.jpg"><img src="images/thumbs/04.jpg" alt="" /></a>
-							<h2>Donec maximus nisi eget</h2>
-							<p>Tristique in nulla vel congue. Sed sociis natoque parturient nascetur.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/05.jpg" data-position="top center"><img src="images/thumbs/05.jpg" alt="" /></a>
-							<h2>Nullam vitae nunc vulputate</h2>
-							<p>In pellentesque cursus velit id posuere. Donec vehicula nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/06.jpg"><img src="images/thumbs/06.jpg" alt="" /></a>
-							<h2>Phasellus magna faucibus</h2>
-							<p>Nulla dignissim libero maximus tellus varius dictum ut posuere magna.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/07.jpg"><img src="images/thumbs/07.jpg" alt="" /></a>
-							<h2>Proin quis mauris</h2>
-							<p>Etiam ultricies, lorem quis efficitur porttitor, facilisis ante orci urna.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/08.jpg"><img src="images/thumbs/08.jpg" alt="" /></a>
-							<h2>Gravida quis varius enim</h2>
-							<p>Nunc egestas congue lorem. Nullam dictum placerat ex sapien tortor mattis.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/09.jpg"><img src="images/thumbs/09.jpg" alt="" /></a>
-							<h2>Morbi eget vitae adipiscing</h2>
-							<p>In quis vulputate dui. Maecenas metus elit, dictum praesent lacinia lacus.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/10.jpg"><img src="images/thumbs/10.jpg" alt="" /></a>
-							<h2>Habitant tristique senectus</h2>
-							<p>Vestibulum ante ipsum primis in faucibus orci luctus ac tincidunt dolor.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/11.jpg"><img src="images/thumbs/11.jpg" alt="" /></a>
-							<h2>Pharetra ex non faucibus</h2>
-							<p>Ut sed magna euismod leo laoreet congue. Fusce congue enim ultricies.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/13.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/14.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/15.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/16.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/17.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/18.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/19.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/20.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/21.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/22.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/23.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/24.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/25.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/26.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/27.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/28.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/29.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/30.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/31.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/32.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/33.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/34.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/35.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/36.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/37.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/38.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/39.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/40.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/41.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/12.jpg"><img src="images/thumbs/42.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-						<article>
-							<a class="thumbnail" href="images/fulls/99.jpg"><img src="images/thumbs/99.jpg" alt="" /></a>
-							<h2>Mattis lorem sodales</h2>
-							<p>Feugiat auctor leo massa, nec vestibulum nisl erat faucibus, rutrum nulla.</p>
-						</article>
-					</section>
+          <dl class="hero-stats">
+            <div>
+              <dt>Works online</dt>
+              <dd data-artwork-count>42</dd>
+            </div>
+            <div>
+              <dt>Based in</dt>
+              <dd>Ludwigsburg, Germany</dd>
+            </div>
+            <div>
+              <dt>Contact</dt>
+              <dd>Direct form + Instagram</dd>
+            </div>
+          </dl>
+        </div>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<ul class="copyright">
-							<li>&copy; Pinkal Art.</li><li>Design: <a href="http://html5up.net">Aiovent</a>.</li>
-						</ul>
-					</footer>
+        <div class="hero-showcase" aria-hidden="true">
+          <div class="hero-card hero-card-main">
+            <img src="images/thumbs/01.jpg" alt="" />
+          </div>
+          <div class="hero-card hero-card-side hero-card-top">
+            <img src="images/thumbs/10.jpg" alt="" />
+          </div>
+          <div class="hero-card hero-card-side hero-card-bottom">
+            <img src="images/thumbs/99.jpg" alt="" />
+          </div>
+          <div class="hero-note">
+            <span>Gallery-first redesign</span>
+            <strong>Built for pure visual impact.</strong>
+            <p>Nothing sits between the visitor and the paintings except a clean inquiry path.</p>
+          </div>
+        </div>
+      </div>
+    </header>
 
-			</div>
+    <main>
+      <section class="section statement" data-reveal>
+        <div class="section-heading">
+          <p class="eyebrow">The collection</p>
+          <h2>A cleaner, stronger digital canvas for the artwork.</h2>
+        </div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/main.js"></script>
+        <div class="statement-grid">
+          <p>
+            This redesign strips out the old template feel and turns Pinkal Art into a focused
+            portfolio experience: stronger typography, warmer color balance, a responsive gallery,
+            and a direct inquiry flow that keeps attention on the work itself.
+          </p>
 
-	
-<!-- Contact Modal -->
-<div id="contactModal" class="modal">
-  <div class="modal-content">
-    <h2>Send a Message</h2>
-    <form action="https://formspree.io/f/xrbqdlkk" method="POST">
-	  <input type="text" name="_gotcha" style="display:none">
-      <label>Your Email:</label>
-      <input type="email" name="email" required>
-      <label>Your Message:</label>
-      <textarea name="message" required></textarea>
-      <button type="submit">Send</button>
-    </form>
-    <a href="#" class="close">Close</a>
-  </div>
-</div>
+          <div class="highlight-panel">
+            <p class="highlight-kicker">Designed for browsing</p>
+            <ul class="highlight-list">
+              <li>Dynamic gallery wall with shuffle and full-screen viewing</li>
+              <li>Responsive layout tuned for both mobile and large screens</li>
+              <li>Formspree inquiry form preserved from the live site</li>
+              <li>Custom domain support kept intact through the existing CNAME</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-</body>
+      <section class="section gallery-section" id="gallery" data-reveal>
+        <div class="section-heading section-heading-row">
+          <div>
+            <p class="eyebrow">Gallery</p>
+            <h2>Open a piece, sit with it, and move through the collection.</h2>
+          </div>
+          <button class="shuffle-button" id="shuffleButton" type="button">Shuffle the wall</button>
+        </div>
+
+        <div class="gallery-grid" id="galleryGrid" aria-live="polite"></div>
+      </section>
+
+      <section class="section inquiry-section" id="contact" data-reveal>
+        <div class="inquiry-shell">
+          <div class="inquiry-copy">
+            <p class="eyebrow">Inquiries</p>
+            <h2>Interested in a piece? Send a note directly.</h2>
+            <p>
+              Use the form for availability, pricing, commissions, or general interest. Instagram
+              remains open for quick introductions, but the form gives serious inquiries a direct path.
+            </p>
+
+            <div class="contact-pills">
+              <a
+                class="pill-link"
+                href="https://instagram.com/pinkal_art_kunst"
+                target="_blank"
+                rel="noreferrer"
+                >Instagram</a
+              >
+              <a class="pill-link" href="#gallery">Reference an artwork number</a>
+            </div>
+
+            <p class="tiny-note">
+              The message form is connected to the existing Pinkal Art inquiry inbox.
+            </p>
+          </div>
+
+          <form
+            class="contact-form"
+            id="contactForm"
+            action="https://formspree.io/f/xrbqdlkk"
+            method="POST"
+            novalidate
+          >
+            <input class="sr-only" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            <input type="hidden" name="_subject" value="Pinkal Art website inquiry" />
+
+            <label>
+              Full name
+              <input type="text" name="name" autocomplete="name" placeholder="Your name" required />
+            </label>
+
+            <label>
+              Email address
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="name@example.com"
+                required
+              />
+            </label>
+
+            <label>
+              Artwork reference
+              <input
+                id="artworkReference"
+                type="text"
+                name="artwork"
+                placeholder="Example: Artwork 01"
+              />
+            </label>
+
+            <label>
+              Message
+              <textarea
+                name="message"
+                rows="6"
+                placeholder="Tell Pinkal which piece you loved or what you would like to ask."
+                required
+              ></textarea>
+            </label>
+
+            <button class="button button-primary submit-button" type="submit">Send inquiry</button>
+            <p class="form-note">Add an artwork number if your message is about a specific piece.</p>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Pinkal Art</p>
+      <p>Original paintings and visual stories.</p>
+      <p>Custom domain: pinkal.art</p>
+    </footer>
+
+    <div class="lightbox" id="lightbox" hidden aria-hidden="true">
+      <button class="lightbox-dismiss" id="closeLightbox" type="button" aria-label="Close artwork view">
+        Close
+      </button>
+      <button class="lightbox-nav lightbox-prev" id="prevArtwork" type="button" aria-label="Previous artwork">
+        Prev
+      </button>
+
+      <figure class="lightbox-figure">
+        <img id="lightboxImage" src="" alt="" />
+        <figcaption class="lightbox-caption">
+          <div>
+            <p class="eyebrow">Artwork</p>
+            <h3 id="lightboxTitle"></h3>
+            <p id="lightboxDescription"></p>
+          </div>
+          <button class="button button-secondary" id="inquireArtwork" type="button">
+            Ask about this piece
+          </button>
+        </figcaption>
+      </figure>
+
+      <button class="lightbox-nav lightbox-next" id="nextArtwork" type="button" aria-label="Next artwork">
+        Next
+      </button>
+    </div>
+
+    <template id="artworkCardTemplate">
+      <article class="artwork-card">
+        <button class="artwork-card__open" type="button">
+          <img class="artwork-card__image" alt="" loading="lazy" />
+          <span class="artwork-card__overlay">Open full view</span>
+        </button>
+
+        <div class="artwork-card__meta">
+          <div>
+            <p class="artwork-card__eyebrow">Original artwork</p>
+            <h3 class="artwork-card__title"></h3>
+          </div>
+          <button class="artwork-card__inquire" type="button">Inquire</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="script.js" defer></script>
+  </body>
 </html>

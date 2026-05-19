@@ -630,9 +630,8 @@ h2 {
 }
 
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 420ms ease, transform 420ms ease;
+  opacity: 1;
+  transform: none;
 }
 
 [data-reveal].is-visible {

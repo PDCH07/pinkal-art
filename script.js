@@ -63,33 +63,37 @@ function fillInquiry(title) {
   artworkReference.focus();
 }
 
-async function handleFormSubmit(event) {
+function handleFormSubmit(event) {
+  if (!("fetch" in window) || !("FormData" in window)) {
+    return;
+  }
+
   event.preventDefault();
 
   formStatus.className = "form-status";
   formStatus.textContent = "Sending your message...";
 
-  try {
-    const response = await fetch(contactForm.action, {
-      method: "POST",
-      body: new FormData(contactForm),
-      headers: {
-        Accept: "application/json",
-      },
+  fetch(contactForm.action, {
+    method: "POST",
+    body: new FormData(contactForm),
+    headers: {
+      Accept: "application/json",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Request failed");
+      }
+
+      contactForm.reset();
+      formStatus.className = "form-status is-success";
+      formStatus.textContent = "Message sent. Pinkal Art will reply through the inquiry inbox.";
+    })
+    .catch(() => {
+      formStatus.className = "form-status is-error";
+      formStatus.innerHTML =
+        'The form could not be sent right now. Please try again or use <a href="https://instagram.com/pinkal_art_kunst" target="_blank" rel="noreferrer">Instagram</a>.';
     });
-
-    if (!response.ok) {
-      throw new Error("Request failed");
-    }
-
-    contactForm.reset();
-    formStatus.className = "form-status is-success";
-    formStatus.textContent = "Message sent. Pinkal Art will reply through the inquiry inbox.";
-  } catch {
-    formStatus.className = "form-status is-error";
-    formStatus.innerHTML =
-      'The form could not be sent right now. Please try again or use <a href="https://instagram.com/pinkal_art_kunst" target="_blank" rel="noreferrer">Instagram</a>.';
-  }
 }
 
 function setupRevealAnimation() {

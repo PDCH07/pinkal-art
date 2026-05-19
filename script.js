@@ -1,87 +1,42 @@
-const artworkIds = "01 02 03 04 05 06 07 08 09 10 11 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 99".split(" ");
+const pieces = [...document.querySelectorAll(".piece")].map((piece, index) => {
+  const link = piece.querySelector("[data-lightbox]");
+  const image = link.querySelector("img");
 
-const titleOverrides = {
-  "01": "Taj Mahal",
-};
-
-const artworkData = artworkIds.map((id, index) => ({
-  id,
-  title: titleOverrides[id] ?? `Artwork ${id}`,
-  description:
-    index === 0
-      ? "Acrylic on canvas with dimensional texture from the Pinkal Art collection."
-      : "Original work from the Pinkal Art collection.",
-  thumb: `images/thumbs/${id}.jpg`,
-  full: `images/fulls/${id}.jpg`,
-}));
+  return {
+    index,
+    id: piece.dataset.index,
+    title: piece.dataset.title,
+    description: piece.dataset.description,
+    full: link.getAttribute("href"),
+    alt: image.alt,
+    link,
+  };
+});
 
 const state = {
-  artworks: [...artworkData],
   activeIndex: 0,
 };
 
-const galleryGrid = document.getElementById("galleryGrid");
-const artworkCardTemplate = document.getElementById("artworkCardTemplate");
-const artworkCountTargets = document.querySelectorAll("[data-artwork-count]");
 const artworkReference = document.getElementById("artworkReference");
-const shuffleButton = document.getElementById("shuffleButton");
 const contactForm = document.getElementById("contactForm");
 const formStatus = document.getElementById("formStatus");
-const submitButton = contactForm.querySelector(".submit-button");
 const lightbox = document.getElementById("lightbox");
 const lightboxImage = document.getElementById("lightboxImage");
+const lightboxIndex = document.getElementById("lightboxIndex");
 const lightboxTitle = document.getElementById("lightboxTitle");
 const lightboxDescription = document.getElementById("lightboxDescription");
 const closeLightboxButton = document.getElementById("closeLightbox");
 const prevArtworkButton = document.getElementById("prevArtwork");
 const nextArtworkButton = document.getElementById("nextArtwork");
-const inquireArtworkButton = document.getElementById("inquireArtwork");
-
-function updateArtworkCount() {
-  artworkCountTargets.forEach((target) => {
-    target.textContent = String(state.artworks.length);
-  });
-}
-
-function createArtworkCard(artwork, index) {
-  const fragment = artworkCardTemplate.content.cloneNode(true);
-  const card = fragment.querySelector(".artwork-card");
-  const openButton = fragment.querySelector(".artwork-card__open");
-  const image = fragment.querySelector(".artwork-card__image");
-  const title = fragment.querySelector(".artwork-card__title");
-  const inquireButton = fragment.querySelector(".artwork-card__inquire");
-
-  image.src = artwork.thumb;
-  image.alt = `${artwork.title} by Pinkal Art`;
-  title.textContent = artwork.title;
-
-  openButton.addEventListener("click", () => openLightbox(index));
-  inquireButton.addEventListener("click", () => focusInquiry(artwork));
-
-  card.dataset.artworkId = artwork.id;
-
-  return fragment;
-}
-
-function renderGallery() {
-  galleryGrid.replaceChildren();
-
-  const fragment = document.createDocumentFragment();
-
-  state.artworks.forEach((artwork, index) => {
-    fragment.appendChild(createArtworkCard(artwork, index));
-  });
-
-  galleryGrid.appendChild(fragment);
-  updateArtworkCount();
-}
+const lightboxInquireButton = document.getElementById("lightboxInquire");
 
 function openLightbox(index) {
-  state.activeIndex = index;
-  const artwork = state.artworks[index];
+  const artwork = pieces[index];
 
+  state.activeIndex = index;
   lightboxImage.src = artwork.full;
-  lightboxImage.alt = `${artwork.title} full view`;
+  lightboxImage.alt = artwork.alt;
+  lightboxIndex.textContent = artwork.id;
   lightboxTitle.textContent = artwork.title;
   lightboxDescription.textContent = artwork.description;
   lightbox.hidden = false;
@@ -92,31 +47,20 @@ function openLightbox(index) {
 function closeLightbox() {
   lightbox.hidden = true;
   lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.removeAttribute("src");
   document.body.classList.remove("is-locked");
 }
 
 function stepArtwork(direction) {
-  const nextIndex = (state.activeIndex + direction + state.artworks.length) % state.artworks.length;
+  const nextIndex = (state.activeIndex + direction + pieces.length) % pieces.length;
   openLightbox(nextIndex);
 }
 
-function focusInquiry(artwork) {
-  artworkReference.value = artwork.title;
+function fillInquiry(title) {
+  artworkReference.value = title;
   closeLightbox();
   document.getElementById("contact").scrollIntoView({ behavior: "smooth", block: "start" });
   artworkReference.focus();
-}
-
-function shuffleArtworks() {
-  const shuffled = [...state.artworks];
-
-  for (let index = shuffled.length - 1; index > 0; index -= 1) {
-    const randomIndex = Math.floor(Math.random() * (index + 1));
-    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
-  }
-
-  state.artworks = shuffled;
-  renderGallery();
 }
 
 async function handleFormSubmit(event) {
@@ -124,7 +68,6 @@ async function handleFormSubmit(event) {
 
   formStatus.className = "form-status";
   formStatus.textContent = "Sending your message...";
-  submitButton.disabled = true;
 
   try {
     const response = await fetch(contactForm.action, {
@@ -141,13 +84,11 @@ async function handleFormSubmit(event) {
 
     contactForm.reset();
     formStatus.className = "form-status is-success";
-    formStatus.textContent = "Message sent. Pinkal Art will get back to you through the inquiry inbox.";
+    formStatus.textContent = "Message sent. Pinkal Art will reply through the inquiry inbox.";
   } catch {
     formStatus.className = "form-status is-error";
     formStatus.innerHTML =
-      'The form could not be sent right now. Please try again in a moment or use <a href="https://instagram.com/pinkal_art_kunst" target="_blank" rel="noreferrer">Instagram</a>.';
-  } finally {
-    submitButton.disabled = false;
+      'The form could not be sent right now. Please try again or use <a href="https://instagram.com/pinkal_art_kunst" target="_blank" rel="noreferrer">Instagram</a>.';
   }
 }
 
@@ -169,19 +110,25 @@ function setupRevealAnimation() {
       });
     },
     {
-      threshold: 0.15,
+      threshold: 0.12,
     }
   );
 
   revealTargets.forEach((target) => observer.observe(target));
 }
 
-shuffleButton.addEventListener("click", shuffleArtworks);
+pieces.forEach((artwork, index) => {
+  artwork.link.addEventListener("click", (event) => {
+    event.preventDefault();
+    openLightbox(index);
+  });
+});
+
 contactForm.addEventListener("submit", handleFormSubmit);
 closeLightboxButton.addEventListener("click", closeLightbox);
 prevArtworkButton.addEventListener("click", () => stepArtwork(-1));
 nextArtworkButton.addEventListener("click", () => stepArtwork(1));
-inquireArtworkButton.addEventListener("click", () => focusInquiry(state.artworks[state.activeIndex]));
+lightboxInquireButton.addEventListener("click", () => fillInquiry(pieces[state.activeIndex].title));
 
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) {
@@ -207,5 +154,4 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-renderGallery();
 setupRevealAnimation();

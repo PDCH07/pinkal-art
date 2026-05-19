@@ -202,10 +202,31 @@ h3,
   border: 1px solid rgba(103, 75, 57, 0.06);
 }
 
-.nav-link__symbol {
-  color: var(--accent);
-  font-size: 0.88em;
+.nav-link__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05rem;
+  height: 1.05rem;
   line-height: 1;
+  flex: 0 0 auto;
+}
+
+.nav-link__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.nav-link__icon--gallery {
+  color: var(--sky);
+}
+
+.nav-link__icon--inquire {
+  color: var(--accent-deep);
+}
+
+.nav-link__icon--instagram {
+  color: var(--berry);
 }
 
 .site-nav__links a:hover,

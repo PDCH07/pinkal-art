@@ -193,10 +193,19 @@ h3,
 }
 
 .site-nav__links a {
+  display: inline-flex;
+  align-items: center;
   padding: 0.65rem 0.95rem;
+  gap: 0.45rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.5);
   border: 1px solid rgba(103, 75, 57, 0.06);
+}
+
+.nav-link__symbol {
+  color: var(--accent);
+  font-size: 0.88em;
+  line-height: 1;
 }
 
 .site-nav__links a:hover,

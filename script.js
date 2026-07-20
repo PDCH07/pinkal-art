@@ -1,3 +1,5 @@
+document.documentElement.classList.add("has-js");
+
 const pieces = [...document.querySelectorAll(".piece")].map((piece, index) => {
   const link = piece.querySelector("[data-lightbox]");
   const image = link.querySelector("img");
@@ -97,7 +99,7 @@ function handleFormSubmit(event) {
 }
 
 function setupRevealAnimation() {
-  const revealTargets = document.querySelectorAll("[data-reveal]");
+  const revealTargets = document.querySelectorAll("[data-reveal], .piece");
 
   if (!("IntersectionObserver" in window)) {
     revealTargets.forEach((target) => target.classList.add("is-visible"));
@@ -106,15 +108,16 @@ function setupRevealAnimation() {
 
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
+      entries
+        .filter((entry) => entry.isIntersecting)
+        .forEach((entry, batchIndex) => {
+          window.setTimeout(() => entry.target.classList.add("is-visible"), batchIndex * 70);
           observer.unobserve(entry.target);
-        }
-      });
+        });
     },
     {
       threshold: 0.12,
+      rootMargin: "0px 0px -4% 0px",
     }
   );
 

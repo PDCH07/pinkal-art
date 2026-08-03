@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Not found — Pinkal Art</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0d0b0a" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230d0b0a'/><text x='16' y='23' font-family='Georgia,serif' font-size='19' fill='%23d9a441' text-anchor='middle'>P</text></svg>"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400;1,6..96,500&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=20260803-atelier" />
+    <style>
+      .lost {
+        min-height: 100svh;
+        display: grid;
+        place-content: center;
+        justify-items: start;
+        gap: 1.75rem;
+        position: relative;
+        isolation: isolate;
+      }
+      .lost__code {
+        font-family: var(--display);
+        font-size: clamp(5rem, 22vw, 15rem);
+        line-height: 0.8;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(211, 160, 75, 0.5);
+      }
+      .lost h1 {
+        font-size: clamp(1.8rem, 5vw, 3.4rem);
+      }
+      .lost p {
+        color: var(--canvas-70);
+        max-width: 46ch;
+      }
+      .lost__actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <main class="lost shell">
+      <div class="hero__wash" aria-hidden="true">
+        <span class="wash wash--ember"></span>
+        <span class="wash wash--indigo"></span>
+      </div>
+
+      <p class="lost__code" aria-hidden="true">404</p>
+      <p class="eyebrow"><span class="eyebrow__rule" aria-hidden="true"></span> Nothing hangs here</p>
+      <h1>This wall is empty.</h1>
+      <p>
+        The page you asked for was never painted, or has been moved. The collection is still where you left
+        it.
+      </p>
+      <div class="lost__actions">
+        <a class="btn btn--gold" href="/">
+          Back to the gallery
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M2.5 8h11M9.5 4l4 4-4 4" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+        <a class="btn btn--quiet" href="/#contact">Get in touch</a>
+      </div>
+    </main>
+  </body>
+</html>

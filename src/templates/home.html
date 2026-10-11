@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% from 'partials/plate.html' import plate, thumb %}
+{% block content %}
+<section class="hero">
+<div class="hang hang--hero" style="--art-wall:{{ hero.wall }};--ar:{{ hero.ar }};--maxw:{{ hero.maxw }}px">
+{{ plate(hero, '(min-width: 1024px) calc(58vw - 96px), calc(100vw - 32px)', loading='eager', priority=true, cls='plate--hero') }}
+<div class="label label--hero">
+<p class="label__no">{{ hero.no }}</p>
+<p class="label__subject"{% if hero.subject_lang != page.lang %} lang="{{ hero.subject_lang }}"{% endif %}>{{ hero.subject }}</p>
+<a class="label__room" href="{{ hero.room_url }}">{{ t('label.room', room=hero.room_name) }}</a>
+</div>
+</div>
+<div class="hero__text">
+<h1 class="hero__line">{{ t('hero.line')|nl2br }}</h1>
+<p class="hero__tagline">{{ t('hero.tagline') }}</p>
+<a class="hero__all" href="{{ url('works') }}">{{ t('hero.all_works', count=total) }}</a>
+</div>
+</section>
+
+<section class="thesis shell">
+<p class="thesis__deck">{{ t('thesis.deck') }}</p>
+<ul class="thesis__proof">
+{% set ordinals = ['thesis.proof_first', 'thesis.proof_second', 'thesis.proof_third', 'thesis.proof_fourth'] %}
+{% for v in proof %}
+<li class="thesis__item">{{ plate(v, '(min-width: 1024px) 300px, 45vw', caption=ts(ordinals[loop.index0] if loop.index0 < 4 else 'thesis.proof_more', v.subject)) }}</li>
+{% endfor %}
+</ul>
+</section>
+
+<section class="rooms shell" aria-labelledby="rooms-h">
+<h2 class="section-h" id="rooms-h">{{ t('rooms.heading') }}</h2>
+{% set first = rooms[0] %}
+<section class="rail" aria-label="{{ first.name }}">
+<button class="rail__prev btn btn--icon" type="button" aria-controls="rail-track" aria-label="{{ t('a11y.rail_prev') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8"/></svg></button>
+<ul class="rail__track" id="rail-track">
+<li class="rail__text">
+<h3 class="rail__name"><a href="{{ first.url }}">{{ first.name }}</a></h3>
+<p>{{ first.text }}</p>
+<a class="rail__more" href="{{ first.url }}">{{ first.enter_text }}</a>
+</li>
+{% for id in first.ids %}
+{% set v = views[id] %}
+<li class="rail__item">{{ plate(v, '(min-width: 1024px) ' ~ (320 * v.ar)|round|int ~ 'px, ' ~ (220 * v.ar)|round|int ~ 'px', caption=v.label) }}</li>
+{% endfor %}
+</ul>
+<button class="rail__next btn btn--icon" type="button" aria-controls="rail-track" aria-label="{{ t('a11y.rail_next') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8"/></svg></button>
+</section>
+<ul class="doors">
+{% for r in rooms[1:] %}
+{% set v = views[r.lead] %}
+<li class="doors__item"><a class="door" href="{{ r.url }}">
+<span class="door__lead" style="--art-wall:{{ v.wall }};--ar:{{ v.ar }}"><picture><source type="image/avif" srcset="{{ v.srcset_avif }}" sizes="(min-width: 1024px) 23vw, 100vw"><img class="door__pic" src="{{ v.src }}" srcset="{{ v.srcset_jpg }}" sizes="(min-width: 1024px) 23vw, 100vw" width="{{ v.src_w }}" height="{{ v.src_h }}" alt="" loading="lazy" decoding="async"></picture></span>
+<span class="door__name">{{ r.name }}</span>
+<span class="door__text">{{ r.text }}</span>
+<span class="door__count">{{ r.enter_text }}</span>
+</a></li>
+{% endfor %}
+</ul>
+</section>
+
+<section class="sheet shell" aria-labelledby="sheet-h">
+<h2 class="section-h" id="sheet-h">{{ t('sheet.heading') }}</h2>
+<div class="sheet__wall">
+{% for v in works %}
+<a class="sheet__tile" href="{{ v.url }}" data-work="{{ v.id }}" aria-label="{{ v.label }}" style="--ar:{{ v.ar }}">{{ thumb(v, cls='sheet__pic') }}</a>
+{% endfor %}
+<span class="sheet__fill" aria-hidden="true"></span>
+</div>
+<p class="sheet__caption" aria-live="polite">{{ t('sheet.caption_default') }}</p>
+<a class="sheet__open text-link" href="{{ url('works') }}">{{ t('sheet.open') }}</a>
+</section>
+
+<section class="studio shell" aria-labelledby="studio-h">
+<h2 class="section-h" id="studio-h">{{ t('studio.heading') }}</h2>
+<div class="studio__grid">
+<p class="studio__mark" aria-hidden="true">Pinkal</p>
+{% if photo %}
+<figure class="studio__photo" style="--ar:{{ photo.ar }};--maxw:{{ photo.maxw }}px">
+<picture><source type="image/avif" srcset="{{ photo.srcset_avif }}" sizes="(min-width: 1024px) 50vw, calc(100vw - 32px)"><img src="{{ photo.src }}" srcset="{{ photo.srcset_jpg }}" sizes="(min-width: 1024px) 50vw, calc(100vw - 32px)" width="{{ photo.src_w }}" height="{{ photo.src_h }}" alt="{{ photo.alt }}" loading="lazy" decoding="async"></picture>
+<figcaption>{{ photo.subject }}</figcaption>
+</figure>
+{% endif %}
+{% if crops %}
+<ul class="studio__crops">
+{% for c in crops %}
+<li><img src="{{ c.src }}" width="{{ c.w }}" height="{{ c.h }}" alt="" loading="lazy" decoding="async"><span>{{ t('studio.detail_caption', no=c.id) }}</span></li>
+{% endfor %}
+</ul>
+{% endif %}
+<p class="studio__text">{{ t('studio.p_location') }}
+{% if site.facts.medium[page.lang] %} {{ t('studio.p_medium', medium=site.facts.medium[page.lang]) }}{% endif %}
+{% if site.facts.self_taught %} {{ t('studio.p_self_taught') }}{% endif %}
+{{ t('studio.p_instagram') }}</p>
+{% if site.bio[page.lang] %}<p class="studio__bio">{{ site.bio[page.lang] }}</p>{% endif %}
+{% if site.artist_statement[page.lang] %}<blockquote class="studio__quote"><p>{{ site.artist_statement[page.lang] }}</p></blockquote>{% endif %}
+</div>
+</section>
+
+<section class="enquire shell" id="enquire" aria-labelledby="enquire-h">
+<h2 class="section-h" id="enquire-h">{{ t('enquire.heading') }}</h2>
+{% include 'partials/enquire.html' %}
+</section>
+{% endblock %}

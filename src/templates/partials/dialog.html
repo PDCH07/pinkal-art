@@ -1,0 +1,28 @@
+{# The viewing room. Rendered once per page with plates; room.js fills it from #room-data. #}
+{% set alt_home = slugs[page.other].prefix ~ '/' %}
+<dialog class="room" id="room" aria-labelledby="room-caption-title">
+<div class="room__bar-top">
+<p class="room__counter" aria-live="polite"></p>
+<a class="room__lang" href="{{ page.alt_path or alt_home }}" hreflang="{{ page.other }}" lang="{{ page.other }}" aria-label="{{ t('a11y.lang') }}">{{ t('nav.lang') }}</a>
+<button class="room__close" type="button" aria-label="{{ t('room.close') }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+</div>
+<button class="room__prev" type="button" aria-label="{{ t('room.prev') }}"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M15 4l-8 8 8 8"/></svg></button>
+<button class="room__next" type="button" aria-label="{{ t('room.next') }}"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true" focusable="false"><path d="M9 4l8 8-8 8"/></svg></button>
+<div class="room__stage">
+<figure class="room__figure" tabindex="-1" aria-labelledby="room-caption-no room-caption-title">
+<div class="room__img-wrap"><img class="room__img" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width="1" height="1" alt=""></div>
+</figure>
+</div>
+<div class="room__bar-bottom">
+<p class="room__caption"><span class="room__no" id="room-caption-no"></span> <span class="room__title" id="room-caption-title"></span></p>
+<div class="room__actions">
+<a class="room__ask btn btn--primary" href="{{ url('enquire') }}">{{ t('room.ask') }}</a>
+<button class="room__share btn btn--room" type="button">{{ t('room.share') }}</button>
+<button class="room__zoom btn btn--room" type="button" hidden>{{ t('room.zoom') }}</button>
+<button class="room__play btn btn--room" type="button">{{ t('room.play') }}</button>
+<button class="room__fullscreen btn btn--room" type="button">{{ t('room.fullscreen') }}</button>
+<a class="room__open btn btn--room" href="{{ url('works') }}">{{ t('room.open_page') }}</a>
+</div>
+</div>
+<div class="room__progress" aria-hidden="true"></div>
+</dialog>

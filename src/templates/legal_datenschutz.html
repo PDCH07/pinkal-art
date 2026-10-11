@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+{% set l = legal %}
+<article class="legal shell">
+<header class="page-head">
+<h1 class="page-head__title">Datenschutzerklärung</h1>
+</header>
+<section class="legal__section">
+<h2>Verantwortlicher</h2>
+<p>{{ l.name }}<br>{{ l.street }}<br>{{ l.postcode }} {{ l.city }}<br>E-Mail: <a href="mailto:{{ l.email }}">{{ l.email }}</a></p>
+</section>
+<section class="legal__section">
+<h2>Überblick</h2>
+<p>Diese Website setzt keine Cookies, kein Tracking, keine Analyse-Werkzeuge und keine eingebetteten Inhalte Dritter ein. Schriften und Bilder werden von dieser Domain ausgeliefert. Es werden keine Daten im Browser gespeichert (kein localStorage).</p>
+</section>
+<section class="legal__section">
+<h2>Hosting</h2>
+<p>Die Website wird bei GitHub Pages gehostet, einem Dienst der GitHub, Inc., USA. Beim Aufruf einer Seite verarbeitet GitHub technisch notwendige Server-Protokolldaten: IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene URL und User-Agent des Browsers. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren und stabilen Betrieb der Website). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework und die Standardvertragsklauseln der EU-Kommission. Die Speicherdauer richtet sich nach den Vorgaben von GitHub. Weitere Informationen: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener" target="_blank">Datenschutzerklärung von GitHub</a>.</p>
+</section>
+<section class="legal__section">
+<h2>Kontaktformular</h2>
+<p>Anfragen über das Formular werden von Formspree (Formspree, Inc., USA) entgegengenommen und per E-Mail an den Verantwortlichen weitergeleitet. Verarbeitet werden Name, E-Mail-Adresse, Nachricht, das ausgewählte Gemälde und die IP-Adresse. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Anfrage). Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework und Standardvertragsklauseln. Die Daten werden bis zur Erledigung der Anfrage gespeichert und danach innerhalb von {{ l.get('retention_months') or 'TODO' }} Monaten gelöscht. Das Formular enthält ein unsichtbares Feld zur Abwehr von Spam-Programmen; es verarbeitet keine Daten echter Besucher.</p>
+{% if l.form_consent_checkbox %}
+<p>Mit dem Absenden erklären Sie sich einverstanden, dass Ihre Angaben zur Beantwortung der Anfrage verwendet werden. Diese Einwilligung können Sie jederzeit per E-Mail widerrufen.</p>
+{% endif %}
+</section>
+{% if site.whatsapp %}
+<section class="legal__section">
+<h2>WhatsApp</h2>
+<p>Der WhatsApp-Link öffnet die App oder den Webdienst von WhatsApp (Meta Platforms Ireland Limited). Dort verarbeitete Daten unterliegen der Datenschutzerklärung von Meta.</p>
+</section>
+{% endif %}
+<section class="legal__section">
+<h2>Externe Links</h2>
+<p>Der Link zu Instagram (Meta Platforms Ireland Limited) öffnet in einem neuen Tab. Es ist kein Plugin und kein Pixel eingebunden; beim bloßen Besuch dieser Website werden keine Daten an Meta übertragen.</p>
+</section>
+<section class="legal__section">
+<h2>Ihre Rechte</h2>
+<p>Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21 DSGVO). Eine erteilte Einwilligung können Sie jederzeit widerrufen. Sie haben außerdem das Recht, sich bei einer Aufsichtsbehörde zu beschweren; zuständig ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg.</p>
+</section>
+<section class="legal__section">
+<h2>Keine automatisierte Entscheidungsfindung</h2>
+<p>Es findet keine automatisierte Entscheidungsfindung und kein Profiling statt. Die Bereitstellung personenbezogener Daten ist weder gesetzlich noch vertraglich vorgeschrieben; ohne Ihre Angaben kann eine Anfrage jedoch nicht beantwortet werden.</p>
+</section>
+<p class="legal__date">{{ t('legal.updated', date=date_text) }}</p>
+<section class="legal__section legal__summary" lang="en">
+<h2>{{ t('legal.summary_heading') }}</h2>
+<p>This site sets no cookies and uses no tracking or analytics; fonts and images come from this domain. GitHub Pages (GitHub, Inc., USA) hosts the site and processes technical server logs. The enquiry form is handled by Formspree (Formspree, Inc., USA), which forwards your name, email address, message and the chosen painting by email to {{ l.name }}. You can ask for access, correction or deletion of your data at <a href="mailto:{{ l.email }}">{{ l.email }}</a>. The German text above is the legally binding version.</p>
+</section>
+</article>
+{% endblock %}

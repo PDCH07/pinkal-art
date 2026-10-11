@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% from 'partials/plate.html' import plate %}
+{% block scripts %}
+<script type="module" src="{{ assets.show_js }}"></script>
+{% endblock %}
+{% block body %}
+{% set first = page.leads[0] if page.leads else hero %}
+<main class="show" id="main" data-interval="8000" style="--art-deep:{{ first.deep }}">
+<div class="show__stage">
+<img class="show__img" src="{{ first.fallback }}" width="{{ first.src_w }}" height="{{ first.src_h }}" alt="{{ first.alt }}" decoding="async">
+</div>
+<p class="show__caption"><span class="show__no">{{ first.no }}</span> <span class="show__subject">{{ first.subject }}</span> <img class="show__qr" src="{{ first.qr }}" width="96" height="96" alt="{{ t('show.qr_alt', no=first.id) }}"></p>
+<div class="show__controls">
+<button class="show__pause btn btn--room" type="button" aria-pressed="false">{{ t('show.pause') }}</button>
+<button class="show__fullscreen btn btn--room" type="button">{{ t('show.fullscreen') }}</button>
+<a class="show__exit btn btn--room" href="{{ url('home') }}">{{ t('room.close') }}</a>
+</div>
+<div class="show__progress" aria-hidden="true"></div>
+<section class="show__sheet" aria-labelledby="show-sheet-h">
+<h1 class="show__sheet-h" id="show-sheet-h">{{ t('show.sheet_heading') }}</h1>
+<p class="show__sheet-intro">{{ t('show.intro') }} {{ t('show.sheet_hint') }}</p>
+<ul class="show__list">
+{% for v in page.leads %}
+<li class="show__item">
+{{ plate(v, '(min-width: 700px) 30vw, calc(100vw - 32px)', caption=v.label) }}
+<img class="show__item-qr" src="{{ v.qr }}" width="120" height="120" alt="{{ t('show.qr_alt', no=v.id) }}" loading="lazy" decoding="async">
+<span class="show__item-url">{{ v.abs_url }}</span>
+</li>
+{% endfor %}
+</ul>
+</section>
+</main>
+{% endblock %}

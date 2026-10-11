@@ -1,0 +1,55 @@
+{
+  "name": "Pinkal",
+  "domain": "https://pinkal.art",
+  "instagram": "https://www.instagram.com/pinkal_art_kunst/",
+  "hero": "13",
+  "proof": [
+    "01",
+    "32",
+    "21",
+    "41"
+  ],
+  "location": {
+    "city": "Ludwigsburg",
+    "region": "Baden-Württemberg"
+  },
+  "formspree": "xrbqdlkk",
+  "whatsapp": null,
+  "artist_statement": {
+    "en": null,
+    "de": null
+  },
+  "bio": {
+    "en": null,
+    "de": null
+  },
+  "facts": {
+    "medium": {
+      "en": null,
+      "de": null
+    },
+    "self_taught": null
+  },
+  "offers": {
+    "commissions": false,
+    "visits": null,
+    "shipping": null,
+    "reply_days": null,
+    "certificate": null
+  },
+  "now": null,
+  "legal": {
+    "name": "TODO",
+    "street": "TODO",
+    "postcode": "TODO",
+    "city": "TODO",
+    "country": "Deutschland",
+    "email": "TODO",
+    "phone": null,
+    "vat_id": null,
+    "vat_mode": "TODO",
+    "responsible_mstv": "TODO",
+    "form_consent_checkbox": false
+  },
+  "show_proposed_titles": false
+}

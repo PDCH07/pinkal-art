@@ -1,0 +1,16 @@
+{# One painting at true proportion. DOM hooks are a contract with src/js (see CONTRACT section 6). #}
+{% macro plate(v, sizes, loading='lazy', caption=none, alt=none, link=true, cls='', priority=false, vt=false, href=none, stage=false, capped=false, aria=none, extra='', link_style='') -%}
+{% if link %}<a class="plate__link{% if stage %} plate__link--stage{% endif %}" href="{{ href or v.url }}" data-work="{{ v.id }}" aria-label="{{ aria or v.label }}"{% if stage %} data-open-room{% endif %}{% if link_style %} style="{{ link_style }}"{% endif %}>{% endif %}
+<figure class="plate{% if v.round %} plate--round{% endif %}{% if v.band %} plate--band{% endif %}{% if capped %} plate--capped{% endif %}{% if cls %} {{ cls }}{% endif %}" style="--ar:{{ v.ar }};--maxw:{{ v.maxw }}px;--art-wall:{{ v.wall }}{% if extra %};{{ extra }}{% endif %}" data-work="{{ v.id }}">
+<span class="plate__img"{% if not v.round %} style="background-image:url({{ v.lqip }})"{% endif %} data-no="{{ v.no }}">
+<picture><source type="image/avif" srcset="{{ v.srcset_avif }}" sizes="{{ sizes }}"><img class="plate__pic" src="{{ v.src }}" srcset="{{ v.srcset_jpg }}" sizes="{{ sizes }}" width="{{ v.src_w }}" height="{{ v.src_h }}" alt="{{ v.alt if alt is none else alt }}" loading="{{ loading }}" decoding="async"{% if priority %} fetchpriority="high"{% endif %}{% if vt %} style="view-transition-name:work-{{ v.id }}"{% endif %}></picture>
+</span>
+{% if caption %}<figcaption class="plate__caption">{{ caption }}</figcaption>{% endif %}
+</figure>
+{% if link %}</a>{% endif %}
+{%- endmacro %}
+
+{# Small, single-variant picture (sheet tiles, door leads, pager thumbs); alt="" because the link carries the name. #}
+{% macro thumb(v, cls='', loading='lazy') -%}
+<picture><source type="image/avif" srcset="{{ v.small_avif }}"><img class="{{ cls }}" src="{{ v.small_jpg }}" width="{{ v.small_w }}" height="{{ v.small_h }}" alt="" loading="{{ loading }}" decoding="async"></picture>
+{%- endmacro %}

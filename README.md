@@ -1,59 +1,133 @@
 # pinkal.art
 
-The studio gallery of **Pinkal Art** — forty-two original paintings from pure imagination.
-Live at **[pinkal.art](https://pinkal.art/)**, served by GitHub Pages from `main`.
+The website of Pinkal, painter in Ludwigsburg: every page is generated from a few JSON files
+and the photographs in `sources/`. English at `/`, German under `/de/`. Hosted by GitHub Pages
+from the `main` branch; what is in the repo root is what is online.
 
-## Stack
+## Requirements
 
-Hand-written HTML, CSS and JavaScript. No framework, no bundler, no build step —
-push to `main` and it deploys. The only external request is the Google Fonts
-stylesheet (Bodoni Moda + Jost).
+- Python 3.12 or newer. Install the packages once:
 
-```
-index.html      the whole site: hero, statement, featured works, gallery, studio, inquiry
-styles.css      design tokens + every component
-script.js       masonry, filters, lightbox, reveals, contact form
-404.html        branded not-found page
-images/fulls/   full-resolution paintings, shown in the lightbox
-images/thumbs/  downscaled versions (max 1000px) used by the grid
-CNAME           custom domain
-```
+      python -m pip install -r tools/requirements.txt
+      playwright install chromium      # only for the share cards in og/; optional
 
-## Adding a painting
+- Git. Node is not needed to run the site (it is used only for quality tools).
 
-1. Drop the full-resolution file into `images/fulls/` as `NN.jpg`.
-2. Add a downscaled copy to `images/thumbs/` — **max 1000px on the long edge, JPEG quality ~82.**
-   The grid loads all 42 thumbnails, so full-resolution files here would cost visitors
-   tens of megabytes.
-3. Copy an existing `<article class="work">` block in `index.html` and update:
-   - `data-id` — the artwork number shown in the UI
-   - `data-title` and `data-desc` — used by the lightbox
-   - `data-cat` — one of `places`, `figures`, `creatures`, `nature`
-   - the `src`, `href`, `alt`, and the `width`/`height` of the **thumbnail**
-     (these prevent layout shift, so they must be the real pixel dimensions)
-4. Bump the counts in the filter buttons near the top of the gallery section.
+## The one command
 
-Nothing else needs touching — the lightbox, masonry and filters read straight from the DOM.
+    python tools/build.py
 
-## Local preview
+It reads `data/`, renders every page into the repo root, writes the review sheet and the
+checklist, generates share cards and QR codes, and ends with the quality checks. Then look at
+the result:
 
-```sh
-python -m http.server 8000
-# then open http://localhost:8000
-```
+    python -m http.server          # open http://localhost:8000/
 
-Opening `index.html` directly via `file://` mostly works, but a server is closer to production.
+and publish with `git add -A`, `git commit -m "..."`, `git push`.
 
-## Contact form
+Flags: `--no-images` skips the share cards and QR codes (fast preview); `--deploy` refuses to
+finish while the legal data has `TODO`s or a check fails; `--data-dir DIR` builds from another
+data folder; `--out DIR` writes somewhere else.
 
-Posts to [Formspree](https://formspree.io/) (`action` on `#contactForm` in `index.html`).
-JavaScript intercepts the submit for inline status messages; without JavaScript the form
-still submits normally.
+## Adding a painting in three steps
 
-## Notes
+1. Copy the photograph to `sources/43.jpg` (two-digit number, JPEG, long edge of at least
+   2400 px if it should be allowed as a hero, room lead or in the exhibition mode).
+2. Add one object to `data/works.json`:
 
-- The design is deliberately dark so the paintings supply all the colour.
-- `prefers-reduced-motion` is fully honoured — parallax, reveals and the marquee all stop.
-- `LICENSE.txt` is the CCA 3.0 license from *Lens* by [HTML5 UP](https://html5up.net), the
-  template this site originally started from. None of that code remains — the site was
-  rewritten from scratch — but the credit is kept here with thanks.
+       {
+         "id": "43", "kind": "painting", "room": "animals", "order": 13,
+         "subject": {"en": "Fox in snow under a red moon", "de": "Fuchs im Schnee unter rotem Mond"},
+         "alt": {"en": "A red fox walking through deep snow, a large red moon behind bare trees",
+                 "de": "Ein Rotfuchs läuft durch tiefen Schnee, hinter kahlen Bäumen ein großer roter Mond"},
+         "title_status": "none", "zoom": false, "desc_approved": false
+       }
+
+   `room` is one of `rain`, `india`, `landscapes`, `animals`, `music-and-colour`; `order` is the
+   position inside that room. Everything else (`title`, `medium`, `width_cm`, `height_cm`,
+   `year`, `panels`, `status`, `price_eur`, `price_mode`, `signed`, `shape`) may stay out or be
+   `null` and simply does not render.
+3. Run `python tools/build.py`, check `http://localhost:8000/works/43/`, commit and push.
+
+The counts on the site ("All 41 works", "{n} paintings") follow the data; never type a number
+into a text.
+
+## Confirming a title
+
+Titles are shown only when the artist has confirmed them. In `data/works.json` set
+
+    "title": {"en": "Shared Monsoon", "de": null}, "title_status": "confirmed"
+
+Until then the painting is labelled by its number and subject line ("No. 13 · Couple under a
+red umbrella …"). `build/REVIEW.csv` lists every painting with its subject, the proposed title
+and the fields still open; it is the sheet to go through with the artist. To preview all
+proposed titles at once, set `"show_proposed_titles": true` in `data/site.json` (not for
+publishing).
+
+## Filling in the legal data
+
+Open `data/site.json`, section `legal`, and replace every `"TODO"`: `name`, `street`,
+`postcode`, `city`, `email`, `vat_mode` (`"regular"` or `"kleinunternehmer"`),
+`responsible_mstv`; add `phone`, `vat_id` and `retention_months` when known. The Impressum and
+the Datenschutzerklärung (`/impressum/`, `/datenschutz/`) are rendered from these fields.
+`python tools/build.py --deploy` refuses to finish while a `TODO` remains, so the site cannot
+go online with an incomplete legal page by accident. A lawyer should read both pages once.
+
+Other facts that only render when present: `facts.medium`, `facts.self_taught`, `bio`,
+`artist_statement`, `whatsapp` (adds WhatsApp buttons), per-work `status`, `price_eur`,
+`price_mode`, `instagram_url`.
+
+## Running the checks
+
+`python tools/check.py` runs on its own too. It checks byte budgets (home page, artwork pages,
+inline and external CSS, scripts), identical keys in `strings.en.json` and `strings.de.json`,
+banned words and literal digits in the texts, colour contrast of the design tokens and of every
+painting's wall tints, broken internal links, `width`/`height`/`alt` on every image, and
+canonical plus hreflang tags on every page. It prints one line per check and exits with an
+error when something fails. Missing share cards, QR codes or icons are only a warning unless
+`--deploy` is used.
+
+## What is generated and what is edited by hand
+
+Hand-edited (the sources of truth):
+
+    data/works.json         the paintings (see above)
+    data/rooms.json         the five rooms: slugs, names, wall texts, lead painting, order
+    data/site.json          name, domain, Instagram, hero, proof plates, location, legal data, facts
+    data/strings.en.json    every interface text, English
+    data/strings.de.json    the same keys in German (the build fails if a key is missing on one side)
+    sources/NN.jpg          the original photographs (never linked from a page)
+    src/templates/          Jinja2 templates (base, pages, partials)
+    src/css/                critical.css (inlined) and site.css (external)
+    src/js/                 site.js, room.js (viewing room), show.js (exhibition mode)
+    tools/                  build.py, check.py, images.py, fonts.py, og.py, qr.py, icons.py
+
+Generated by `python tools/build.py` (do not edit; they are overwritten on the next build):
+
+    index.html 404.html works/ rooms/ de/ enquire/ show/ impressum/ datenschutz/
+    assets/                 hashed stylesheet and scripts
+    images/r/               responsive AVIF and JPEG variants (images.py)
+    images/qr/              QR codes for the exhibition mode (qr.py)
+    og/                     share cards (og.py)
+    fonts/                  self-hosted Fraunces and Instrument Sans (fonts.py, once)
+    data/images.json        measured sizes, colours and placeholders per photograph
+    sitemap.xml robots.txt manifest.webmanifest .nojekyll
+    build/CHECKLIST.md      what is still open, per painting and for the site
+    build/REVIEW.csv        the review sheet for the artist
+    build/manifest.json     every generated path; stale files of a previous build are removed
+
+If a text is missing in `data/strings.*.json`, the build takes it from
+`src/templates/_strings_needed.json` and says so; copy those keys into the two strings files.
+
+## How the pages are built
+
+- Rooms and order come from each painting's `room` and `order`. The works page partitions each
+  room into justified rows at a reference width of 1376 px (gap 32 px, target height 320 px);
+  panoramas (`width ÷ height ≥ 2.2`) get a row of their own, two very tall or two low-resolution
+  paintings never share a row, and the last row is not stretched.
+- A painting is never shown wider than its photograph allows (`width ÷ 1.5` CSS px); when the
+  cap binds it sits centred on a mat tinted with its own wall colour.
+- Hero, room leads and the exhibition mode accept only photographs with a long edge of at least
+  2400 px. Re-photographing a small source lifts the restriction automatically.
+- The viewing room, the chips filter, the form states and the slideshow are progressive: every
+  page works without JavaScript (plain links, a normal form post).

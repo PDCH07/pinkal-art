@@ -1,0 +1,13 @@
+{% set alt_home = slugs[page.other].prefix ~ '/' %}
+<footer class="colophon" aria-label="{{ t('a11y.footer_nav') }}">
+<nav class="colophon__nav" aria-label="{{ t('a11y.footer_nav') }}">
+<a href="{{ url('works') }}">{{ t('nav.works') }}</a>
+<a href="{{ url('enquire') }}">{{ t('nav.enquire') }}</a>
+<a href="{{ page.alt_path or alt_home }}" hreflang="{{ page.other }}" lang="{{ page.other }}" aria-label="{{ t('a11y.lang') }}">{{ t('nav.lang') }}</a>
+<a href="/impressum/" lang="de">{{ t('footer.impressum') }}</a>
+<a href="/datenschutz/">{{ t('footer.datenschutz') }}</a>
+<a href="{{ site.instagram }}" rel="me noopener" target="_blank">Instagram</a>
+</nav>
+<p class="colophon__note">{{ t('footer.note') }}</p>
+<p class="colophon__copy">{{ t('footer.copyright', year=year, city=site.location.city) }} · {{ t('footer.rights') }}</p>
+</footer>

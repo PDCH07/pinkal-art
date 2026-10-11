@@ -1,0 +1,9 @@
+# Python packages for the pinkal.art build (python tools/build.py).
+# Install once:   python -m pip install -r tools/requirements.txt
+# Then run once:  playwright install chromium
+#   (downloads the browser that renders the share cards in og/; without it the build
+#    skips the cards with a warning and everything else still works)
+Pillow>=11.3
+Jinja2>=3.1
+segno>=1.6
+playwright>=1.49

@@ -1,7 +1,0 @@
-{# Room filter: plain links to the room pages; site.js filters rows in place. `active` = "all" or a room slug. #}
-<nav class="chips" aria-label="{{ t('a11y.chips') }}">
-<a class="chips__chip" data-room="all" href="{{ url('works') }}"{% if active == 'all' %} aria-current="page"{% endif %}>{{ t('chips.all') }}</a>
-{% for r in rooms %}
-<a class="chips__chip" data-room="{{ r.slug }}" href="{{ r.url }}"{% if active == r.slug %} aria-current="page"{% endif %}>{{ r.name }}</a>
-{% endfor %}
-</nav>
